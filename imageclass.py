@@ -42,39 +42,39 @@ cv2.imwrite("ones.png",ones)
 print("/n Next")
 
 # find neighbouring pixel:
-def get_neighbours(image, x_pixels, y_pixels, kernel=0):
-    for x in range(x_pixels-1):
-        for y in range(y_pixels-1):
-            neighbour_coords=[[max(0, (x-1)),max(0,(y-1))],
-            [max(0, (x-1)),y],
-            [max(0, (x-1)), min((y_pixels-1),(y+2))]] # to finish array kernel....
-            neighbour_coords=np.array(neighbour_coords)
-            print(f"Image pixel is : {image[x,y]} at {x,y} and neighbour co-ords : {neighbour_coords}")
-            return neighbour_coords
+def get_neighbours(image, x_pixels, y_pixels,x,y, kernel=0):
+    neighbour_coords=[[max(0, (x-1)),max(0,(y-1))],
+    [max(0, (x-1)),y],
+    [max(0, (x-1)), min((y_pixels-1),(y+2))]] # to finish array kernel....
+    neighbour_coords=np.array(neighbour_coords)
+    print(f"Image pixel is : {image[x,y]} at {x,y} and neighbour co-ords : {neighbour_coords}")
+    return neighbour_coords
 
 #find value at neighbour
 def value_at_neighbour(image):
     x_pixels, y_pixels=np.shape(image)
     for x in range(x_pixels-1):
         for y in range(y_pixels-1):
-            neighbour_coords=get_neighbours(image, x_pixels, y_pixels,kernel=0)
-            neighbour_values=np.array(image[x,y])#empty array with shape of nighbour-co-ords array
+            neighbour_coords=get_neighbours(image, x_pixels, y_pixels, x, y, kernel=0)
+            neighbour_values=[]#empty array with shape of nighbour-co-ords array
+           
             for z in neighbour_coords:
-                neighbour_value = image[neighbour_coords[z]]
-                #neighbour_values =np.append(neighbour_values, neighbour_value, axis=0)
+                neighbour_value = image[z[0],z[1]]
+                print(f"z is {z} ")
+                print(f"and neighbour_value is {neighbour_value}")
+                neighbour_values.append(neighbour_value)
         
             print(f"\n Neighbour values are: {neighbour_values}")
+    
 
             
 
 
 
-print("/n Next neighbours")
+print("\n Next neighbours")
 value_at_neighbour(ones)
 
-
-
-# i think I may ned to remove the for in for in neighbour co-ords
+# i think I may need to remove the for in for in neighbour co-ords
 """empty=np.array([])
 empty=np.append(empty,[2,3,5],axis=0)
 empty=np.append(empty,[2,"gh",5],axis=0)
@@ -85,3 +85,6 @@ empty=np.array([3,4,5])
 
 empty=np.append(empty,[[2,"gh",5],[2,7,8]],axis=0)
 print(np.shape(empty), "Empty :", empty)"""
+
+print("\n \n ----------------------------- Exampless----------------------------------")
+
