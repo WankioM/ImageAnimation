@@ -57,15 +57,52 @@ def value_at_neighbour(image):
         for y in range(y_pixels-1):
             neighbour_coords=get_neighbours(image, x_pixels, y_pixels, x, y, kernel=0)
             neighbour_values=[]#empty array with shape of nighbour-co-ords array
+            dict={}
            
             for z in neighbour_coords:
                 neighbour_value = image[z[0],z[1]]
-                print(f"z is {z} ")
-                print(f"and neighbour_value is {neighbour_value}")
                 neighbour_values.append(neighbour_value)
+                #Changing values back to normal arrays to work with in dict
+                pyneighbour_value=int(neighbour_value)
+                pyz=tuple(z)
+                dict[pyz]=pyneighbour_value# append to dictionary of neighbour-co-ords
+                print(f"My dict of neighbour coords:values is {dict}")#At the end of this for loop, we finally get 
+
+           
+                
+
+            #check if neighbour has a white value
+            if 255 in neighbour_values:
+                return True
         
             print(f"\n Neighbour values are: {neighbour_values}")
+
+
+
+#Create and write image with path
+#Create an empty imaage of arrays with 0 and switch the 0 with the white values one by one
+
+"""
+That is, if neighbour coord is True
+If neighbour coord is True, then move to square
+Divide square by number of frames
+We need it to pick a square
+"""
+if value_at_neighbour:
+    #move to neighbour co-ord and update values around the kernel
+    #Create dictionary with values
+    g=1
     
+
+#Initialize frame count
+frame_count=0
+
+#So now we have to create a path through the image and create frames  
+def create_path_frames(frames=10) :
+    new_frame=np.zeros(5,5)
+    for i in range(frames): #number of frames
+        frame_count += 1
+        cv2.imwrite(f'new{frame_count}.png',new_frame)
 
             
 
